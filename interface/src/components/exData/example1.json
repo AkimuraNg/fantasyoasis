@@ -1,0 +1,42 @@
+[
+    {
+        "category": "Action",
+        "blogs": [
+            {
+                "title": "Demon vs Angel",
+                "body": "st st",
+                "id": 1
+            }
+        ]
+    },
+    {
+        "category": "Adventure",
+        "blogs": [
+            {
+                "title": "Night Travelling",
+                "body": "st st",
+                "id": 2
+            }
+        ]
+    },
+    {
+        "category": "Romance",
+        "blogs": [
+            {
+                "title": "Boy & Girl",
+                "body": "st st",
+                "id": 3
+            }
+        ]
+    },
+    {
+        "category": "Horror",
+        "blogs": [
+            {
+                "title": "Kappa",
+                "body": "st st",
+                "id": 4
+            }
+        ]
+    }
+]

@@ -1,0 +1,17 @@
+$textcolor: red;
+
+.App {
+  font-family: 'Times New Roman', Times, serif;
+  text-align: center;
+  background: whitesmoke;
+  color: $textcolor;
+
+  .container-fluid {
+    padding-right: unset;
+    padding-left: unset;
+  }
+
+  main {
+    min-height: 100vh;
+  }
+}
