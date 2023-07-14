@@ -1,28 +1,29 @@
 import React from 'react'
 import './styles/navbar.scss'
 import {GiOpenBook} from 'react-icons/gi'
+import {Link} from 'react-router-dom'
 
 const Navbar = () => {
     return (
         <nav className='navbar navbar-expand-lg bg-body-tertiary sticky-top'>
             <div className='container'>
-                <a className='navbar-brand' href='#'>
+                <Link className='navbar-brand' to='/'>
                     <GiOpenBook/>
-                </a>
+                </Link>
                 <button className='navbar-toggler' type='button' data-bs-toggle='collapse' data-bs-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
                     <span className='navbar-toggler-icon'></span>
                 </button>
                 <div className='collapse navbar-collapse' id='navbarSupportedContent'>
                     <ul className='navbar-nav justify-content-center flex-grow-1'>
                         <li className='nav-item'>
-                            <a className='nav-link active' aria-current='page' href='#'>Home</a>
+                            <Link className='nav-link active' aria-current='page' to='/'>Home</Link>
                         </li>
                         <li className='nav-item'>
-                            <a className='nav-link' href='#'>Link</a>
+                            <Link className='nav-link' to='/compose'>Write</Link>
                         </li>
-                        <li className='nav-item'>
+                        {/* <li className='nav-item'>
                             <a className='nav-link' href='#'>Link</a>
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
             </div>
