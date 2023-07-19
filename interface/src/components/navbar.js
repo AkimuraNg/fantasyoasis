@@ -18,9 +18,9 @@ const Navbar = () => {
                         <li className='nav-item'>
                             <Link className='nav-link active' aria-current='page' to='/'>Home</Link>
                         </li>
-                        <li className='nav-item'>
-                            <Link className='nav-link' to='/compose'>Write</Link>
-                        </li>
+                        {/* <li className='nav-item'>
+                            <Link className='nav-link disabled' to='/compose'>Write</Link>
+                        </li> */}
                         {/* <li className='nav-item'>
                             <a className='nav-link' href='#'>Link</a>
                         </li> */}

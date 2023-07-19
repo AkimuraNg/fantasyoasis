@@ -2,7 +2,8 @@ import { Route, Routes } from 'react-router-dom';
 import './App.scss';
 import Home from './components/home';
 import Navbar from './components/navbar';
-import Compose from './components/compose';
+import StoryPage from './components/storyPage';
+// import Compose from './components/compose';
 
 function App() {
   return (
@@ -14,7 +15,8 @@ function App() {
           <p>Write your own fantasy novels</p>
           <Routes>
             <Route path='/' element={<Home />}></Route>
-            <Route path='/compose' element={<Compose />}></Route>
+            {/* <Route path='/compose' element={<Compose />}></Route> */}
+            <Route path='/server/:id' element={<StoryPage />}></Route>
           </Routes>
         </main>
       </div>

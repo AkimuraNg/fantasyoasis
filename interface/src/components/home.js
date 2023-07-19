@@ -1,49 +1,44 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import './styles/home.scss'
+import useFetch from './useFetch'
 import { AiFillEdit, AiFillDelete } from 'react-icons/ai'
 
 const jsonServerURL = 'https://bedecked-elastic-whippet.glitch.me/server'
 
 const Home = () => {
-    const [filterOption, setFilterOption] = useState('')
+    const [filterOption, setFilterOption] = useState('');
     const [sortOption, setSortOption] = useState('');
-    const [categoriesData, setCategoriesData] = useState([]);
 
+    const { data: categoriesData, loading, error } = useFetch(jsonServerURL);
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
-    useEffect(() => {
-        fetchData();
-    }, []);
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
 
-    const fetchData = async () => {
-        try {
-            const response = await fetch(jsonServerURL);
-            if (response.ok) {
-                const data = await response.json();
-                setCategoriesData(data);
-            } else {
-                console.log('Error fetching data from the server.');
-            }
-        } catch (error) {
-            console.log('Error fetching data from the server:', error);
-        }
-    };
+    const availableCategories = Array.from(new Set(categoriesData.map((category) => category.category)));
 
-    const availableCategories = categoriesData.map((category) => category.category)
-
-    const filteredCategories = categoriesData
-        .filter((categories) => {
+    const filteredCategories = availableCategories
+        .filter((category) => {
             if (filterOption === '') return true;
-            return categories.category === filterOption;
+            return category === filterOption;
         })
-        .map((categories) => {
-            const sortedBlogs = [...categories.blogs];
-            if (sortOption === 'title') {
-                sortedBlogs.sort((a, b) => a.title.localeCompare(b.title));
-            } else if (sortOption === 'date') {
-                sortedBlogs.sort((a, b) => new Date(a.date) - new Date(b.date));
-            }
-            return { ...categories, blogs: sortedBlogs };
-        });
+        .map((category) => ({
+            category: category,
+            Server: categoriesData.filter((item) => item.category === category)
+        }));
+
+    // Sort the stories within each category if needed
+    filteredCategories.forEach((category) => {
+        if (sortOption === 'title') {
+            category.Server.sort((a, b) => a.title.localeCompare(b.title));
+        } else if (sortOption === 'date') {
+            category.Server.sort((a, b) => new Date(a.date) - new Date(b.date));
+        }
+    });
 
     return (
         <div className='home'>
@@ -70,28 +65,27 @@ const Home = () => {
             </div>
 
             <div className='storyList'>
-                {filteredCategories.map((categories, index) => (
+                {filteredCategories.map((category, index) => (
                     <div key={index}>
-                        <h3>{categories.category}</h3>
-                        {[index] && (
-                            <section className='items'>
-                                {categories.blogs.map((blogs) => (
-                                    <div className='card' key={blogs.id}>
-                                        <div className='card-content'>
-                                            <h5 className='card-title'>{blogs.title}</h5>
-                                            <div className='btns'>
-                                                <button className='btn-delete'>
-                                                    <AiFillDelete />
-                                                </button>
-                                                <button className='btn-edit'>
-                                                    <AiFillEdit />
-                                                </button>
-                                            </div>
+                        <h3>{category.category}</h3>
+                        <section className='items'>
+                            {category.Server.map((story) => (
+                                <div className='card' key={story.id}>
+                                    <div className='card-content'>
+                                        <h5 className='card-title'>{story.title}</h5>
+                                        <div className='btns'>
+                                            <button className='btn-delete'>
+                                                <AiFillDelete />
+                                            </button>
+                                            <button className='btn-edit'>
+                                                <AiFillEdit />
+                                            </button>
                                         </div>
+                                        <Link to={`server/${story.id}`}>to story</Link>
                                     </div>
-                                ))}
-                            </section>
-                        )}
+                                </div>
+                            ))}
+                        </section>
                     </div>
                 ))}
             </div>
