@@ -2,23 +2,27 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import './styles/home.scss'
 import useFetch from './useFetch'
-import { AiFillEdit, AiFillDelete } from 'react-icons/ai'
+// import { AiFillForward} from 'react-icons/ai'
 
 const jsonServerURL = 'https://bedecked-elastic-whippet.glitch.me/server'
 
 const Home = () => {
     const [filterOption, setFilterOption] = useState('');
     const [sortOption, setSortOption] = useState('');
+    
 
     const { data: categoriesData, loading, error } = useFetch(jsonServerURL);
+    
+    
     if (loading) {
         return <div>Loading...</div>;
     }
-
+    
     if (error) {
         return <div>Error: {error}</div>;
     }
-
+   
+    
     const availableCategories = Array.from(new Set(categoriesData.map((category) => category.category)));
 
     const filteredCategories = availableCategories
@@ -39,7 +43,11 @@ const Home = () => {
             category.Server.sort((a, b) => new Date(a.date) - new Date(b.date));
         }
     });
-
+    
+    const handleToStoryClick = () => {
+        window.scrollTo(0, 0); // Scrolls to the top of the page
+      };
+    
     return (
         <div className='home'>
             <div className='FiltersandSort'>
@@ -73,15 +81,15 @@ const Home = () => {
                                 <div className='card' key={story.id}>
                                     <div className='card-content'>
                                         <h5 className='card-title'>{story.title}</h5>
-                                        <div className='btns'>
+                                        {/* <div className='btns'>
                                             <button className='btn-delete'>
                                                 <AiFillDelete />
                                             </button>
                                             <button className='btn-edit'>
                                                 <AiFillEdit />
                                             </button>
-                                        </div>
-                                        <Link to={`server/${story.id}`}>to story</Link>
+                                        </div> */}
+                                        <Link to={`server/${story.id}`} onClick={handleToStoryClick}> To Story</Link>
                                     </div>
                                 </div>
                             ))}
