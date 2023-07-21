@@ -9,20 +9,20 @@ const jsonServerURL = 'https://bedecked-elastic-whippet.glitch.me/server'
 const Home = () => {
     const [filterOption, setFilterOption] = useState('');
     const [sortOption, setSortOption] = useState('');
-    
 
-    const { data: categoriesData, loading, error } = useFetch(jsonServerURL);
-    
-    
+
+    const queryParams = filterOption ? `?category=${filterOption}` : '';
+    const { data: categoriesData, loading, error } = useFetch(jsonServerURL, queryParams);
+
     if (loading) {
         return <div>Loading...</div>;
     }
-    
+
     if (error) {
         return <div>Error: {error}</div>;
     }
-   
-    
+
+
     const availableCategories = Array.from(new Set(categoriesData.map((category) => category.category)));
 
     const filteredCategories = availableCategories
@@ -32,7 +32,7 @@ const Home = () => {
         })
         .map((category) => ({
             category: category,
-            Server: categoriesData.filter((item) => item.category === category)
+            Server: categoriesData.filter((item) => item.category === category),
         }));
 
     // Sort the stories within each category if needed
@@ -43,11 +43,11 @@ const Home = () => {
             category.Server.sort((a, b) => new Date(a.date) - new Date(b.date));
         }
     });
-    
+
     const handleToStoryClick = () => {
         window.scrollTo(0, 0); // Scrolls to the top of the page
-      };
-    
+    };
+
     return (
         <div className='home'>
             <div className='FiltersandSort'>
@@ -75,7 +75,9 @@ const Home = () => {
             <div className='storyList'>
                 {filteredCategories.map((category, index) => (
                     <div key={index}>
-                        <h3>{category.category}</h3>
+                        <Link to={`category/${category.category}`} onClick={handleToStoryClick}>
+                            <h3>{category.category}</h3>
+                        </Link>
                         <section className='items'>
                             {category.Server.map((story) => (
                                 <div className='card' key={story.id}>
@@ -89,7 +91,7 @@ const Home = () => {
                                                 <AiFillEdit />
                                             </button>
                                         </div> */}
-                                        <Link to={`server/${story.id}`} onClick={handleToStoryClick}> To Story</Link>
+                                        <Link to={`server/${story.id}`} onClick={handleToStoryClick}>to story</Link>
                                     </div>
                                 </div>
                             ))}

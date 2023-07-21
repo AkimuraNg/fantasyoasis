@@ -37,6 +37,11 @@
     .storyList {
         padding: 10px 0px;
 
+        a {
+            color: red;
+            text-decoration: none;
+        }
+
         .items {
             display: flex;
             flex-direction: column;
@@ -61,6 +66,7 @@
                         padding-top: 10px;
                         text-transform: uppercase;
                     }
+
                     a {
                         font-size: 16px;
                         color: black;

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const useFetch = (url) => {
+const useFetch = (url, query = '') => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -8,7 +8,7 @@ const useFetch = (url) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(url);
+        const response = await fetch(`${url}${query}`);
         if (!response.ok) {
           throw new Error('Network response was not ok.');
         }
@@ -22,7 +22,7 @@ const useFetch = (url) => {
     };
 
     fetchData();
-  }, [url]);
+  }, [url, query]);
 
   return { data, loading, error };
 };
