@@ -1,8 +1,37 @@
-.categoryPage{
-    h2{
+.categoryPage {
+    h2 {
         text-transform: uppercase;
         border-bottom: 1px solid red;
         text-align: center;
         margin: 20px 32px;
+    }
+
+    .pageItems {
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 4px;
+
+        .card {
+            margin: 10px 0px;
+            padding: 10px;
+            width: 18rem;
+
+            .card-title {
+                font-size: 20px;
+                color: red;
+                padding-top: 20px;
+                text-transform: uppercase;
+            }
+
+            a {
+                font-size: 16px;
+                color: black;
+                padding-top: 4px;
+                padding-bottom: 10px;
+            }
+        }
     }
 }

@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
 
-const useFetch = (url, query = '') => {
-  const [data, setData] = useState([]);
+const useFetch = (url, initialData = []) => { // Set initialData as an optional parameter
+  const [data, setData] = useState(initialData);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${url}${query}`);
+        const response = await fetch(url);
         if (!response.ok) {
           throw new Error('Network response was not ok.');
         }
@@ -22,7 +22,7 @@ const useFetch = (url, query = '') => {
     };
 
     fetchData();
-  }, [url, query]);
+  }, [url]);
 
   return { data, loading, error };
 };

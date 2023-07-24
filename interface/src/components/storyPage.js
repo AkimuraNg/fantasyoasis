@@ -12,9 +12,11 @@ const StoryPage = () => {
 
     const [storyData, setStoryData] = useState(initialStoryData);
     const [editing, setEditing] = useState(false);
+    const [editedStoryData, setEditedStoryData] = useState({}); // New state to store temporary edits
 
     useEffect(() => {
         setStoryData(initialStoryData);
+        setEditedStoryData(initialStoryData); // Initialize editedStoryData when initialStoryData changes
     }, [initialStoryData]);
 
     if (loading) {
@@ -26,40 +28,46 @@ const StoryPage = () => {
     }
 
     const handleClick = () => {
-        navigate('/')
-    }
+        navigate('/');
+    };
 
     const handleEdit = () => {
+        setEditedStoryData(storyData);
         setEditing(true);
+    };
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setEditedStoryData((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }));
     };
 
     const handleSave = async () => {
         try {
-            // Make a fetch request to update the data on the server
             const response = await fetch(`${jsonServerURL}/${id}`, {
-                method: 'PUT', // Use 'PUT' method for updating data
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(storyData), // Convert the storyData object to JSON
+                body: JSON.stringify(editedStoryData),
             });
 
             if (response.ok) {
-                // If the update is successful, setEditing to false to exit edit mode
+                // Update the storyData state with editedStoryData after a successful save
+                setStoryData(editedStoryData);
                 setEditing(false);
             } else {
-                // Handle error cases, such as server errors or validation errors
                 console.error('Error updating story data:', response.statusText);
             }
         } catch (error) {
-            // Handle network errors or other unexpected errors
             console.error('Error updating story data:', error.message);
         }
     };
 
     const handleCancel = () => {
-        // Reset the storyData to the initial state to cancel the edit
-        setStoryData(initialStoryData);
+        setEditedStoryData(storyData);
         setEditing(false);
     };
 
@@ -70,19 +78,26 @@ const StoryPage = () => {
                 {!editing && <div className='story'>{storyData.body}</div>}
                 {editing ? (
                     <textarea
-                        value={storyData.body}
-                        onChange={(e) => setStoryData({ ...storyData, body: e.target.value })}
+                        name='body' // Assuming 'body' is the field you want to edit
+                        value={editedStoryData.body || ''}
+                        onChange={handleChange}
                     />
                 ) : null}
                 {editing ? (
                     <div className='SaveandEdit'>
-                        <button onClick={handleSave} className='SaveBtn'>Save</button>
-                        <button onClick={handleCancel} className='CancelBtn'>Cancel</button>
+                        <button onClick={handleCancel} className='CancelBtn'>
+                            Cancel
+                        </button>
+                        <button onClick={handleSave} className='SaveBtn'>
+                            Save
+                        </button>
                     </div>
                 ) : (
-                    <button onClick={handleEdit} className='EditBtn'>Edit</button>
+                    <button onClick={handleEdit} className='EditBtn'>
+                        Edit
+                    </button>
                 )}
-                <button onClick={handleClick}>Click</button>
+                <button onClick={handleClick} className='ReturnBtn'>Return to Home</button>
             </div>
         </div>
     )

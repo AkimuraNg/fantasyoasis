@@ -91,7 +91,7 @@ const Home = () => {
                                                 <AiFillEdit />
                                             </button>
                                         </div> */}
-                                        <Link to={`server/${story.id}`} onClick={handleToStoryClick}>to story</Link>
+                                        <Link to={`server/${story.id}`} onClick={handleToStoryClick}>To Story</Link>
                                     </div>
                                 </div>
                             ))}
