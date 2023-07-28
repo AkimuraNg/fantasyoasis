@@ -50,6 +50,8 @@ const Home = () => {
 
     return (
         <div className='home'>
+            <h1 style={{ textTransform: 'uppercase' }}>Fantasy Oasis</h1>
+            <p>Write your own fantasy novels</p>
             <div className='FiltersandSort'>
                 <div className='filterOpts'>
                     <label>Filter by Category:</label>
@@ -83,6 +85,7 @@ const Home = () => {
                                 <div className='card' key={story.id}>
                                     <div className='card-content'>
                                         <h5 className='card-title'>{story.title}</h5>
+                                        <p className='card-body'>{story.author}</p>
                                         {/* <div className='btns'>
                                             <button className='btn-delete'>
                                                 <AiFillDelete />

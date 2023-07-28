@@ -1,0 +1,38 @@
+.addNew {
+    padding-top: 20px;
+
+    .form-group {
+        padding-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        input {
+            width: 18rem;
+        }
+
+        textarea {
+            width: 18rem;
+            height: 50vh;
+        }
+
+        label{
+            text-transform: uppercase;
+            margin: 10px 0px;
+            font-size: 18px;
+        }
+
+    }
+
+    .addStory {
+        margin: 30px 0px;
+        width: 100px;
+        font-size: 18px;
+        text-align: center;
+        border: 1px solid red;
+        background: whitesmoke;
+        color: red;
+        border-radius: 8px;
+        text-transform: uppercase;
+    }
+}

@@ -74,6 +74,7 @@ const StoryPage = () => {
     return (
         <div className='story-content'>
             <h2>{storyData.title}</h2>
+            <h5>Written by: {storyData.author}</h5>
             <div className='story-body'>
                 {!editing && <div className='story'>{storyData.body}</div>}
                 {editing ? (
