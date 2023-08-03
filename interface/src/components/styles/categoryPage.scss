@@ -35,3 +35,27 @@
         }
     }
 }
+
+@media (min-width: 768px) {
+    .categoryPage {
+        .pageItems {
+            flex-direction: row;
+
+            .card {
+                margin: 10px 10px;
+            }
+        }
+    }
+}
+
+@media (min-width: 1440px) {
+    .categoryPage {
+        .pageItems {
+            flex-direction: row;
+
+            .card {
+                margin: 10px 10px;
+            }
+        }
+    }
+}
