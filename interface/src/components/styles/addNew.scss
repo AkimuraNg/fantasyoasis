@@ -9,11 +9,15 @@
 
         input {
             width: 18rem;
+            border-radius: 4px;
+            border: 1px solid black;
         }
 
         textarea {
             width: 18rem;
             height: 50vh;
+            border-radius: 4px;
+            border: 1px solid black;
         }
 
         label{
@@ -34,5 +38,36 @@
         color: red;
         border-radius: 8px;
         text-transform: uppercase;
+    }
+}
+
+@media (min-width: 768px){
+    .addNew{
+        .form-group{
+            input, label{
+                width: 30rem;
+            }
+
+            textarea{
+                width: 40rem;
+                height: 70vh;
+            }
+        }
+    }
+}
+
+@media (min-width: 1440px){
+    .addNew{
+        .form-group{
+            input, label{
+                width: 40rem;
+                height: 40px;
+            }
+
+            textarea{
+                width: 84rem;
+                height: 70vh;
+            }
+        }
     }
 }
